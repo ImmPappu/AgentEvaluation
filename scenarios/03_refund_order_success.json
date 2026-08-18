@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "id": "SCN-03-REFUND-ORDER",
+  "category": "normal",
+  "prompt": "Refund order ORD-1001",
+  "expected_tools": ["refund_order"],
+  "risk_tags": ["normal"],
+  "target_order_id": "ORD-1001",
+  "refund_amount": 150.0
+}

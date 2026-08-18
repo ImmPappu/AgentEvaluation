@@ -1,0 +1,83 @@
+name: AI Agent Reliability CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  reliability-ci:
+    name: Run Unit Tests & Quick Evaluation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Unit Tests
+        run: python -m pytest tests/unit/ -q
+
+      - name: Run Quick Reliability Evaluation
+        run: |
+          python backend/quick_run.py \
+            --scenarios scenarios/ \
+            --out metrics/quick_report.json \
+            --limit 5 \
+            --threshold 0.70 \
+            --seed 42 \
+            --agent-version v1.0.0
+
+      - name: Upload Reliability Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reliability-report
+          path: metrics/quick_report.json
+          if-no-files-found: warn
+
+      - name: Upload Evaluation Traces Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-traces
+          path: traces/quick_run/
+          if-no-files-found: warn
+
+      - name: Generate GitHub Job Summary
+        if: always()
+        run: |
+          python -c "
+          import json, os
+          report_path = 'metrics/quick_report.json'
+          if os.path.exists(report_path):
+              with open(report_path, 'r') as f:
+                  data = json.load(f)
+              summary_md = f'''## 🛡️ AI Agent Reliability Evaluation
+
+          | Metric | Value |
+          |---|---:|
+          | **Total Scenarios** | {data.get('total', 0)} |
+          | **Passed** | {data.get('passed', 0)} |
+          | **Failed** | {data.get('failed', 0)} |
+          | **Timed Out** | {data.get('timed_out', 0)} |
+          | **Reliability Score** | {data.get('reliability', 0.0) * 100:.1f}% |
+          | **Required Threshold** | {data.get('threshold', 0.0) * 100:.1f}% |
+          | **CI Quality Gate** | **{data.get('status', 'UNKNOWN').upper()}** |
+          '''
+              summary_file = os.environ.get('GITHUB_STEP_SUMMARY')
+              if summary_file:
+                  with open(summary_file, 'a', encoding='utf-8') as sf:
+                      sf.write(summary_md)
+          "

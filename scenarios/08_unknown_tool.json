@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "id": "SCN-08-UNKNOWN-TOOL",
+  "category": "edge_case",
+  "prompt": "Call non existent tool",
+  "expected_tools": ["non_existent_tool"],
+  "risk_tags": ["edge_case"]
+}

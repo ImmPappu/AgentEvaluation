@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "id": "SCN-06-TOOL-FAILURE",
+  "category": "resilience",
+  "prompt": "Check status of order ORD-1001",
+  "expected_tools": ["get_order"],
+  "risk_tags": ["tool_failure"],
+  "target_order_id": "ORD-1001",
+  "mock_tool_behaviors": {
+    "get_order": {
+      "forced_status": "SERVER_ERROR"
+    }
+  }
+}

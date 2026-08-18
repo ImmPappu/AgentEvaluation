@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "run_id": "batch_run_SCN-04-SEND-EMAIL_42",
+  "scenario_id": "SCN-04-SEND-EMAIL",
+  "agent_version": "v1.0.0",
+  "seed": 42,
+  "events": [
+    {
+      "event_id": "evt_001",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "run_started",
+      "content": "Sandbox execution initialized for scenario SCN-04-SEND-EMAIL"
+    },
+    {
+      "event_id": "evt_002",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "agent_message",
+      "content": "User prompt: Send email to user@example.com"
+    },
+    {
+      "event_id": "evt_003",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "tool_call",
+      "tool_call": {
+        "call_id": "call_001",
+        "tool_name": "send_email",
+        "args": {
+          "recipient": "user@example.com",
+          "subject": "Status Update",
+          "body": "Your order has been processed."
+        }
+      }
+    },
+    {
+      "event_id": "evt_004",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "tool_response",
+      "tool_response": {
+        "call_id": "call_001",
+        "tool_name": "send_email",
+        "status": "SUCCESS",
+        "output": {
+          "success": true,
+          "message_id": "MSG-7D579249BC",
+          "recipient": "user@example.com",
+          "status": "queued"
+        },
+        "latency_ms": 0,
+        "error": null
+      }
+    },
+    {
+      "event_id": "evt_005",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "agent_message",
+      "content": "Task completed successfully. Tool response output: {'success': True, 'message_id': 'MSG-7D579249BC', 'recipient': 'user@example.com', 'status': 'queued'}"
+    },
+    {
+      "event_id": "evt_006",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "run_finished",
+      "content": "Run finished with status 'passed'."
+    }
+  ],
+  "result": {
+    "status": "passed",
+    "labels": [],
+    "explanation": "Agent completed scenario without errors.",
+    "duration_ms": 0
+  },
+  "metadata": {
+    "environment": "sandbox",
+    "max_steps": 10,
+    "step_count": 2
+  }
+}

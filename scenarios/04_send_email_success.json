@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "id": "SCN-04-SEND-EMAIL",
+  "category": "normal",
+  "prompt": "Send email to user@example.com",
+  "expected_tools": ["send_email"],
+  "risk_tags": ["normal"],
+  "recipient": "user@example.com",
+  "subject": "Status Update",
+  "body": "Your order has been processed."
+}

@@ -1,0 +1,35 @@
+# Dockerfile.sandbox - AgentGuard Sandboxed Execution Environment
+# Security: Non-root user execution, network disabled (--network none), read-only workspace ready.
+
+FROM python:3.11-slim
+
+# Prevent Python from writing .pyc files and buffer stdout/stderr
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    AGENT_SEED=42 \
+    AGENT_VERSION=v1.0.0
+
+# Create dedicated non-root user and set up workspace directory
+RUN groupadd -g 1000 agent && \
+    useradd -u 1000 -g agent -m -s /bin/bash agent && \
+    mkdir -p /app/traces /app/metrics && \
+    chown -R agent:agent /app
+
+WORKDIR /app
+
+# Copy dependency definition and install minimal requirements
+COPY --chown=agent:agent requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application source files
+COPY --chown=agent:agent sandbox /app/sandbox
+COPY --chown=agent:agent scenarios /app/scenarios
+COPY --chown=agent:agent docs /app/docs
+
+# Switch to non-root user
+USER agent
+
+# Default entrypoint to run scenario runner
+ENTRYPOINT ["python", "sandbox/runner.py"]
+CMD ["--scenario", "scenarios/01_get_order_success.json", "--out", "traces/run_001.json"]

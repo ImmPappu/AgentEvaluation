@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / Test / Cache
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Environment / IDE
+.env
+.venv
+env/
+venv/
+.vscode/
+.idea/
+
+# Execution outputs (traces & metrics)
+traces/*.json
+metrics/*.json

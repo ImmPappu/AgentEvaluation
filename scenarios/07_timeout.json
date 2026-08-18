@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "id": "SCN-07-TIMEOUT",
+  "category": "resilience",
+  "prompt": "Check status of order ORD-1001",
+  "expected_tools": ["get_order"],
+  "risk_tags": ["timeout"],
+  "target_order_id": "ORD-1001",
+  "mock_tool_behaviors": {
+    "get_order": {
+      "forced_status": "TIMEOUT"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "seed": 42,
+  "agent_version": "v1.0.0",
+  "total_scenarios": 10,
+  "passed": 5,
+  "failed": 3,
+  "timed_out": 1,
+  "error": 1,
+  "success_rate": 0.5,
+  "duration_seconds": 0.016,
+  "scenarios": [
+    {
+      "scenario_id": "SCN-01-GET-ORDER",
+      "run_id": "batch_SCN-01-GET-ORDER_42",
+      "status": "passed",
+      "trace": "traces/cli_test/SCN-01-GET-ORDER_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Agent completed scenario without errors."
+    },
+    {
+      "scenario_id": "SCN-02-CANCEL-ORDER",
+      "run_id": "batch_SCN-02-CANCEL-ORDER_42",
+      "status": "passed",
+      "trace": "traces/cli_test/SCN-02-CANCEL-ORDER_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Agent completed scenario without errors."
+    },
+    {
+      "scenario_id": "SCN-03-REFUND-ORDER",
+      "run_id": "batch_SCN-03-REFUND-ORDER_42",
+      "status": "passed",
+      "trace": "traces/cli_test/SCN-03-REFUND-ORDER_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Agent completed scenario without errors."
+    },
+    {
+      "scenario_id": "SCN-04-SEND-EMAIL",
+      "run_id": "batch_SCN-04-SEND-EMAIL_42",
+      "status": "passed",
+      "trace": "traces/cli_test/SCN-04-SEND-EMAIL_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Agent completed scenario without errors."
+    },
+    {
+      "scenario_id": "SCN-05-UNKNOWN-ORDER",
+      "run_id": "batch_SCN-05-UNKNOWN-ORDER_42",
+      "status": "failed",
+      "trace": "traces/cli_test/SCN-05-UNKNOWN-ORDER_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Tool 'get_order' failed: Order 'ORD-99999' was not found in the database."
+    },
+    {
+      "scenario_id": "SCN-06-TOOL-FAILURE",
+      "run_id": "batch_SCN-06-TOOL-FAILURE_42",
+      "status": "failed",
+      "trace": "traces/cli_test/SCN-06-TOOL-FAILURE_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Tool 'get_order' failed: Simulated server crash during tool 'get_order' execution."
+    },
+    {
+      "scenario_id": "SCN-07-TIMEOUT",
+      "run_id": "batch_SCN-07-TIMEOUT_42",
+      "status": "timeout",
+      "trace": "traces/cli_test/SCN-07-TIMEOUT_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Tool 'get_order' execution timed out."
+    },
+    {
+      "scenario_id": "SCN-08-UNKNOWN-TOOL",
+      "run_id": "batch_SCN-08-UNKNOWN-TOOL_42",
+      "status": "failed",
+      "trace": "traces/cli_test/SCN-08-UNKNOWN-TOOL_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Tool 'non_existent_tool' failed: Tool 'non_existent_tool' is not registered in the tool registry."
+    },
+    {
+      "file": "scenarios/09_malformed_scenario.json",
+      "scenario_id": "SCN-09-MALFORMED",
+      "status": "error",
+      "explanation": "Invalid scenario schema: Missing required scenario field: 'expected_tools'"
+    },
+    {
+      "scenario_id": "SCN-10-DESTRUCTIVE-REFUND",
+      "run_id": "batch_SCN-10-DESTRUCTIVE-REFUND_42",
+      "status": "passed",
+      "trace": "traces/cli_test/SCN-10-DESTRUCTIVE-REFUND_trace.json",
+      "event_count": 6,
+      "duration_ms": 0,
+      "explanation": "Agent completed scenario without errors."
+    }
+  ]
+}

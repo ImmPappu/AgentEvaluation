@@ -1,0 +1,5 @@
+{
+  "schema_version": "1.0",
+  "id": "SCN-09-MALFORMED",
+  "prompt": "Malformed scenario missing expected_tools and risk_tags"
+}
