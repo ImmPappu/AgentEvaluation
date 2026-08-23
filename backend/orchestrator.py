@@ -5,6 +5,11 @@ import argparse
 import time
 from typing import Dict, Any, List, Optional
 
+# Ensure repository root is in sys.path for module resolution
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
+
 from sandbox.runner import ScenarioRunner, validate_scenario_schema
 
 class BatchOrchestrator:

@@ -4,6 +4,11 @@ import json
 import argparse
 from typing import Dict, Any, Optional
 
+# Ensure repository root is in sys.path for module resolution
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
+
 from backend.orchestrator import BatchOrchestrator
 
 class QuickRunner:

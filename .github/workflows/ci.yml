@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Quick Reliability Evaluation
         run: |
-          python backend/quick_run.py \
+          python -m backend.quick_run \
             --scenarios scenarios/ \
             --out metrics/quick_report.json \
             --limit 5 \
