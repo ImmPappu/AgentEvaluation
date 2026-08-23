@@ -10,7 +10,15 @@ import {
   ExecutionTrace,
 } from '../types/agentguard';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const getApiBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim() !== '') {
+    return envUrl.trim().replace(/\/+$/, '');
+  }
+  return '';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -22,17 +30,29 @@ async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T>
       ...options,
     });
 
+    const contentType = response.headers.get('content-type') || '';
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`HTTP ${response.status}: ${errorText || response.statusText}`);
     }
 
+    if (!contentType.includes('application/json')) {
+      const text = await response.text();
+      if (text.trim().startsWith('<')) {
+        throw new Error(
+          `Received HTML instead of JSON from API endpoint [${url}]. ` +
+          `Please configure VITE_API_BASE_URL in your Netlify Environment Variables to point to your live Python backend deployment URL.`
+        );
+      }
+    }
+
     return (await response.json()) as T;
   } catch (err: any) {
-    console.error(`API Request Error [${endpoint}]:`, err);
+    console.error(`API Request Error [${url}]:`, err);
     throw err;
   }
 }
+
 
 export const AgentGuardAPI = {
   // Health
