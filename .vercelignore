@@ -1,0 +1,11 @@
+# Ignore Python backend and non-frontend files for Vercel static deployment
+backend/
+sandbox/
+scenarios/
+traces/
+metrics/
+docs/
+scratch/
+tests/
+requirements.txt
+README.md
