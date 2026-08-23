@@ -196,6 +196,16 @@ def compute_evaluation_summary(agent_version: str = "v1.0.0") -> Dict[str, Any]:
         "guardrail_violations": guardrail_violations
     }
 
+# Root status
+@app.get("/")
+def get_root():
+    return {
+        "status": "ok",
+        "service": "AgentGuard API Backend",
+        "version": "1.0.0",
+        "documentation": "/docs"
+    }
+
 # 1. Health
 @app.get("/api/health")
 def get_health():
@@ -204,6 +214,7 @@ def get_health():
         "service": "AgentGuard API",
         "version": "1.0.0"
     }
+
 
 # 2. Overview
 @app.get("/api/overview")
