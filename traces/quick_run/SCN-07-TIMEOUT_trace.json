@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "run_id": "quick_SCN-07-TIMEOUT_42",
+  "scenario_id": "SCN-07-TIMEOUT",
+  "agent_version": "v1.0.0",
+  "seed": 42,
+  "events": [
+    {
+      "event_id": "evt_001",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "run_started",
+      "content": "Sandbox execution initialized for scenario SCN-07-TIMEOUT"
+    },
+    {
+      "event_id": "evt_002",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "agent_message",
+      "content": "User prompt: Check status of order ORD-1001"
+    },
+    {
+      "event_id": "evt_003",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "tool_call",
+      "tool_call": {
+        "call_id": "call_001",
+        "tool_name": "get_order",
+        "args": {
+          "order_id": "ORD-1001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_004",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "tool_response",
+      "tool_response": {
+        "call_id": "call_001",
+        "tool_name": "get_order",
+        "status": "TIMEOUT",
+        "output": null,
+        "latency_ms": 5000,
+        "error": {
+          "code": "TOOL_TIMEOUT",
+          "message": "Execution of tool 'get_order' timed out after 5000ms."
+        }
+      }
+    },
+    {
+      "event_id": "evt_005",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "agent_message",
+      "content": "Task encountered tool failure: Execution of tool 'get_order' timed out after 5000ms."
+    },
+    {
+      "event_id": "evt_006",
+      "ts": "2026-08-19T00:00:00.000Z",
+      "type": "run_finished",
+      "content": "Run finished with status 'timeout'."
+    }
+  ],
+  "result": {
+    "status": "timeout",
+    "labels": [],
+    "explanation": "Tool 'get_order' execution timed out.",
+    "duration_ms": 0
+  },
+  "metadata": {
+    "environment": "sandbox",
+    "max_steps": 10,
+    "step_count": 2
+  }
+}
