@@ -20,3 +20,11 @@ venv/
 # Execution outputs (traces & metrics)
 traces/*.json
 metrics/*.json
+
+# Frontend build & dependencies
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.vercel/
+
